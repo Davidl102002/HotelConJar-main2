@@ -33,6 +33,7 @@ public class Reservas extends JFrame{
     private JPanel reservas;
     private JTextArea mapaDelHotel;
     private JButton AnularBoton;
+    private JButton buscarDniButton;
 
     private static Hotel h1;
     private Cliente c1;
@@ -318,6 +319,39 @@ public class Reservas extends JFrame{
                 }
 
                 mapaDelHotel.setText(h1.toString());
+
+            }
+        });
+
+
+        buscarDniButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                FileOutputStream fos = null;
+                try {
+                    fos = new FileOutputStream("HotelSerializar.dat");
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                ObjectOutputStream salida = null;
+                try {
+                    salida = new ObjectOutputStream(fos);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                Cliente c1=new Cliente();
+
+                c1.setDni(textDNI.getText());
+                h1.aceptadni(c1.getDni());
+                if(h1.aceptadni(c1.getDni()).equals(c1.getClass())){
+                    c1.setApellido(textApellidos.getText());
+                    c1.setDni(textDNI.getText());
+                    c1.setTelefono(Integer.parseInt(textTeléfono.getText()));
+                    c1.setTarjeta(Integer.parseInt(textTarjeta.getText()));
+                    c1.setFechaEntrada(Integer.parseInt(textFechaEntrada.getText()));
+                    c1.setFechaSalida(Integer.parseInt(textFechaSalida.getText()));
+                }else JOptionPane.showMessageDialog(null,"Este cliente no tiene reservas en el hotel","dni no encontrado",JOptionPane.INFORMATION_MESSAGE);
 
             }
         });
