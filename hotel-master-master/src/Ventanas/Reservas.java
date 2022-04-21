@@ -38,7 +38,7 @@ public class Reservas extends JFrame{
     private Cliente c1;
 
 
-
+//github
 
     String[] comida={"","Sin desayuno","Con desayuno","Media pensión", "Pensión completa"};
 
